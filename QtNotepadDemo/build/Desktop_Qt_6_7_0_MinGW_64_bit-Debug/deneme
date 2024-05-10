@@ -1,0 +1,20 @@
+void MainWindow::on_actionSave_triggered()
+{
+    if (file_path.isEmpty()) {
+        on_actionSave_as_triggered(); // Dosya yolu boşsa "Save As" çağrılır
+        return;
+    }
+
+    QFile file(file_path);
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "..", "File not opened: " + file.errorString());
+        return;
+    }
+
+    QTextStream out(&file);
+    QString text = ui->textEdit->toPlainText();
+    out << text;
+    file.flush();
+    file.close();
+}
+//fsfsdf

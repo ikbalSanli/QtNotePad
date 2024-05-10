@@ -1,0 +1,12 @@
+ QString file_name =QFileDialog::getSaveFileName(this,"open this file");//Dosya adını kaydettik//parent,baslık,varsayılan konum,filtre
+    QFile file(file_name);//nesneyi çağırdık
+    file_path=file_name;
+    if(!file.open(QFile::WriteOnly | QFile::Text)){
+        QMessageBox::warning(this,"..","file not open");
+        return;
+    }
+    QTextStream out (&file);
+    QString text=ui->textEdit->toPlainText();//akıştan metini almak yerine metinden metni alcaz
+    out<<text;
+    file.flush();//temizle
+    file.close();//kapat
